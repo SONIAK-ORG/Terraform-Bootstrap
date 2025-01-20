@@ -3,8 +3,13 @@ provider "azuredevops" {
   personal_access_token = var.pat_token
 }
 
+
+data "azuredevops_project" "project" {
+  name = var.project_name
+}
+
 resource "azuredevops_git_repository" "target_repo" {
-  project_id = var.project_id
+  project_id = data.azuredevops_project.project.id
   name       = var.target_repo_name
   initialization {
     init_type             = "Import"
