@@ -9,8 +9,8 @@ variable "pat_token" {
   sensitive   = true
 }
 
-variable "project_id" {
-  description = "The ID of the Azure DevOps project"
+variable "project_name" {
+  description = "Name of the Azure DevOps project"
   type        = string
 }
 
