@@ -14,7 +14,7 @@ resource "azuredevops_git_repository" "target_repo" {
   initialization {
     init_type             = "Import"
     source_type           = "Git"
-    source_url            = "https://github.com/SONIAK-ORG/avm-deploy"
+    source_url            = "https://github.com/SONIAK-ORG/fabric-setup"
     #service_connection_id = azuredevops_serviceendpoint_generic_git.example-serviceendpoint.id
   }
 }
