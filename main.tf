@@ -8,13 +8,7 @@ resource "azurerm_user_assigned_identity" "fabric-identity" {
   location            = var.location
 }
 
-output "managed_identity_client_id" {
-  value = azurerm_user_assigned_identity.fabric-identity.client_id
-}
 
-output "managed_identity_principal_id" {
-  value = azurerm_user_assigned_identity.fabric-identity.principal_id
-}
 
 
 
