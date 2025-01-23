@@ -2,6 +2,14 @@ provider "azurerm" {
   features {}
 }
 
+provider "azuredevops" {
+  org_service_url       = var.org_url
+  personal_access_token = var.pat_token
+}
+
+# Get client configuration
+data "azurerm_client_config" "example" {}
+
 # Define resource group with prefix
 resource "azurerm_resource_group" "rg_fabric" {
   name     = "${var.prefix}-rg"
@@ -35,7 +43,7 @@ resource "azuredevops_serviceendpoint_azurerm" "se_fabric" {
   credentials {
     serviceprincipalid  = azurerm_user_assigned_identity.mi_fabric.client_id
     serviceprincipalkey = "" # Managed Identity does not require a key
-    tenantid            = var.tenant_id
+    tenantid            = data.azurerm_client_config.example.tenant_id
   }
   azurerm_spn_role_assignment {
     spn_object_id = azurerm_user_assigned_identity.mi_fabric.principal_id
@@ -54,3 +62,4 @@ resource "azuredevops_git_repository" "repo_fabric" {
     service_connection_id = azuredevops_serviceendpoint_azurerm.se_fabric.id
   }
 }
+
