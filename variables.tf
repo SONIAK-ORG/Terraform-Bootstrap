@@ -1,33 +1,22 @@
+# Example variables
 variable "org_url" {
-  description = "Azure DevOps organization URL"
+  description = "The Azure DevOps organization URL"
   type        = string
 }
 
 variable "pat_token" {
-  description = "Personal Access Token for Azure DevOps"
+  description = "The Azure DevOps personal access token"
   type        = string
   sensitive   = true
 }
 
 variable "project_name" {
-  description = "Name of the Azure DevOps project"
+  description = "The name of the Azure DevOps project"
   type        = string
 }
 
 variable "target_repo_name" {
-  description = "Name of the new Git repository to create"
-  type        = string
-}
-
-variable "source_repo_url" {
-  description = "URL of the source repository to import"
-  type        = string
-}
-
-
-
-variable "resource_group_name" {
-  description = "The name of the Azure resource group"
+  description = "The name of the target repository"
   type        = string
 }
 
@@ -41,11 +30,9 @@ variable "tenant_id" {
   type        = string
 }
 
-
 variable "subscription_id" {
   description = "The Azure subscription ID"
   type        = string
-}
 
 
 
