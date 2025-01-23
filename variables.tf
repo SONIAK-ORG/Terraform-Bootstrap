@@ -33,10 +33,9 @@ variable "tenant_id" {
 variable "subscription_id" {
   description = "The Azure subscription ID"
   type        = string
+}
 
-
-
-
-
-
-
+variable "prefix" {
+  description = "Prefix for naming convention"
+  type        = string
+}
