@@ -23,3 +23,20 @@ variable "source_repo_url" {
   description = "URL of the source repository to import"
   type        = string
 }
+
+
+
+variable "resource_group_name" {
+  description = "The name of the Azure resource group"
+  type        = string
+}
+
+variable "location" {
+  description = "The Azure location"
+  type        = string
+}
+
+variable "tenant_id" {
+  description = "The Azure tenant ID"
+  type        = string
+}
