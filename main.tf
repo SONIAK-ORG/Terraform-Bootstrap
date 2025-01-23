@@ -18,6 +18,17 @@ output "managed_identity_principal_id" {
 
 
 
+resource "azurerm_role_assignment" "fabric-Contributor" {
+  principal_id   = azurerm_user_assigned_identity.fabric-identity.principal_id
+  role_definition_name = "Contributor"
+  scope          = "/subscriptions/${var.subscription_id}"
+}
+
+
+
+
+
+
 
 
 
@@ -31,7 +42,6 @@ data "azuredevops_project" "project" {
   name = var.project_name
 }
 
-# Create the service connection
 resource "azuredevops_serviceendpoint_azurerm" "fabric-serviceendpoint" {
   project_id            = data.azuredevops_project.project.id
   service_endpoint_name = "${var.project_name}-service-connection"
@@ -46,8 +56,6 @@ resource "azuredevops_serviceendpoint_azurerm" "fabric-serviceendpoint" {
     role_id       = "b24988ac-6180-42a0-ab88-20f7382dd24c" # Contributor role
   }
 }
-
-
 
 resource "azuredevops_git_repository" "target_repo" {
   project_id = data.azuredevops_project.project.id
