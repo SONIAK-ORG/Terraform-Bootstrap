@@ -59,7 +59,5 @@ resource "azuredevops_git_repository" "repo_fabric" {
   }
 }
 
-output "managed_identity_principal_id" {
-  value = azurerm_user_assigned_identity.fabric-identity.principal_id
-}
+
 
