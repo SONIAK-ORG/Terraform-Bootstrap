@@ -48,7 +48,6 @@ resource "azuredevops_serviceendpoint_azurerm" "se_fabric" {
   }
   azurerm_subscription_id = var.subscription_id
   azurerm_subscription_name = "Azure Fabric Accelerator Pod"
-
 }
 
 # Create a Git repository in Azure DevOps and initialize it with content from a source URL
@@ -63,5 +62,14 @@ resource "azuredevops_git_repository" "repo_fabric" {
   }
 }
 
+# Add the federation section
+resource "azurerm_federated_identity_credential" "example" {
+  name                = "example-federated-credential"
+  resource_group_name = azurerm_resource_group.rg_fabric.name
+  parent_id           = azurerm_user_assigned_identity.mi_fabric.id
+  audience            = ["api://AzureADTokenExchange"]
+  issuer              = azuredevops_serviceendpoint_azurerm.se_fabric.workload_identity_federation_issuer
+  subject             = azuredevops_serviceendpoint_azurerm.se_fabric.workload_identity_federation_subject
+}
 
 
