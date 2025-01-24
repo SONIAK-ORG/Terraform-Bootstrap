@@ -36,15 +36,15 @@ data "azuredevops_project" "project" {
   name = var.project_name
 }
 
-# Create a service connection in Azure DevOps using the managed identity
+# Create a service connection in Azure DevOps using Workload Identity Federation
 resource "azuredevops_serviceendpoint_azurerm" "se_fabric" {
-  project_id            = data.azuredevops_project.project.id
-  service_endpoint_name = "${var.prefix}-service-connection"
-  description           = "Service connection for ${var.project_name}"
-  azurerm_spn_tenantid  = data.azurerm_client_config.tenant.tenant_id
+  project_id                         = data.azuredevops_project.project.id
+  service_endpoint_name              = "${var.prefix}-service-connection"
+  description                        = "Service connection for ${var.project_name}"
+  azurerm_spn_tenantid               = data.azurerm_client_config.tenant.tenant_id
+  service_endpoint_authentication_scheme = "WorkloadIdentityFederation"
   credentials {
     serviceprincipalid  = azurerm_user_assigned_identity.mi_fabric.client_id
-    serviceprincipalkey = "" # Managed Identity does not require a key
   }
   azurerm_subscription_id = var.subscription_id
   azurerm_subscription_name = "Azure Fabric Accelerator Pod"
