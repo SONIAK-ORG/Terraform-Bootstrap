@@ -63,7 +63,7 @@ resource "azuredevops_git_repository" "repo_fabric" {
 }
 
 # Add the federation section
-resource "azurerm_federated_identity_credential" "example" {
+resource "azurerm_federated_identity_credential" "federation" {
   name                = "example-federated-credential"
   resource_group_name = azurerm_resource_group.rg_fabric.name
   parent_id           = azurerm_user_assigned_identity.mi_fabric.id
