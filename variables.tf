@@ -31,6 +31,11 @@ variable "subscription_id" {
   type        = string
 }
 
+variable "source_repo_url" {
+  description = "URL of the source repository to import"
+  type        = string
+}
+
 variable "prefix" {
   description = "Prefix for naming convention"
   type        = string
