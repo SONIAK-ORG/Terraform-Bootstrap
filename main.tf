@@ -47,6 +47,8 @@ resource "azuredevops_serviceendpoint_azurerm" "se_fabric" {
     serviceprincipalkey = "" # Managed Identity does not require a key
   }
   azurerm_subscription_id = var.subscription_id
+  azurerm_subscription_name = "Azure Fabric Accelerator Pod"
+
 }
 
 # Create a Git repository in Azure DevOps and initialize it with content from a source URL
