@@ -13,7 +13,7 @@ data "azurerm_client_config" "tenant" {}
 
 # Define resource group with prefix
 resource "azurerm_resource_group" "rg_fabric" {
-  name     = "${var.prefix}-rg"
+  name     = "${var.prefix}-rg-001"
   location = var.location
 }
 
