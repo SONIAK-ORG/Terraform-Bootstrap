@@ -8,7 +8,7 @@ provider "azuredevops" {
 }
 
 # Get client configuration
-data "azurerm_client_config" "example" {}
+data "azurerm_client_config" "tenant" {}
 
 # Define resource group with prefix
 resource "azurerm_resource_group" "rg_fabric" {
@@ -40,14 +40,10 @@ resource "azuredevops_serviceendpoint_azurerm" "se_fabric" {
   project_id            = data.azuredevops_project.project.id
   service_endpoint_name = "${var.prefix}-service-connection"
   description           = "Service connection for ${var.project_name}"
+  azurerm_spn_tenantid  = data.azurerm_client_config.tenant.tenant_id
   credentials {
     serviceprincipalid  = azurerm_user_assigned_identity.mi_fabric.client_id
     serviceprincipalkey = "" # Managed Identity does not require a key
-    tenantid            = data.azurerm_client_config.example.tenant_id
-  }
-  azurerm_spn_role_assignment {
-    spn_object_id = azurerm_user_assigned_identity.mi_fabric.principal_id
-    role_id       = "b24988ac-6180-42a0-ab88-20f7382dd24c" # Contributor role
   }
 }
 
