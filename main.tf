@@ -43,9 +43,6 @@ resource "azuredevops_serviceendpoint_azurerm" "se_fabric" {
   description                        = "Service connection for ${var.project_name}"
   azurerm_spn_tenantid               = data.azurerm_client_config.tenant.tenant_id
   service_endpoint_authentication_scheme = "ManagedServiceIdentity"
-  credentials {
-    serviceprincipalid  = azurerm_user_assigned_identity.mi_fabric.client_id
-  }
   azurerm_subscription_id = var.subscription_id
   azurerm_subscription_name = "Azure Fabric Accelerator Pod"
 }
