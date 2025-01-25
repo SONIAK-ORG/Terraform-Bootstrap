@@ -42,7 +42,10 @@ resource "azuredevops_serviceendpoint_azurerm" "se_fabric" {
   service_endpoint_name              = "${var.prefix}-service-connection"
   description                        = "Service connection for ${var.project_name}"
   azurerm_spn_tenantid               = data.azurerm_client_config.tenant.tenant_id
-  service_endpoint_authentication_scheme = "ManagedServiceIdentity"
+  service_endpoint_authentication_scheme = "WorkloadIdentityFederation"
+  credentials {
+    serviceprincipalid = azurerm_user_assigned_identity.mi_fabric.client_id
+  }
   azurerm_subscription_id = var.subscription_id
   azurerm_subscription_name = "Azure Fabric Accelerator Pod"
 }
@@ -73,6 +76,8 @@ resource "azurerm_federated_identity_credential" "federation" {
   resource_group_name = azurerm_resource_group.rg_fabric.name
   parent_id           = azurerm_user_assigned_identity.mi_fabric.id
   audience            = ["api://AzureADTokenExchange"]
-  issuer              =  "https://vstoken.dev.azure.com/${var.organization_id}"
-  subject             = "sc://${var.organization_id}/${data.azuredevops_project.project.name}/${var.prefix}-service-connection"
+  #issuer              =  "https://vstoken.dev.azure.com/${var.organization_id}"
+  #subject             = "sc://${var.organization_id}/${data.azuredevops_project.project.name}/${var.prefix}-service-connection"
+  issuer              = azuredevops_serviceendpoint_azurerm.se_fabric.workload_identity_federation_issuer
+  subject             = azuredevops_serviceendpoint_azurerm.se_fabric.workload_identity_federation_subject
 }
