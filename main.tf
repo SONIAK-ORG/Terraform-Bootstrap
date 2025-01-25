@@ -68,6 +68,6 @@ resource "azurerm_federated_identity_credential" "federation" {
   resource_group_name = azurerm_resource_group.rg_fabric.name
   parent_id           = azurerm_user_assigned_identity.mi_fabric.id
   audience            = ["api://AzureADTokenExchange"]
-  issuer              = "https://sts.windows.net/${data.azurerm_client_config.tenant.tenant_id}/" # Example issuer
-  subject             = "system:serviceaccount:default:example" # Example subject
+  issuer              =  "https://vstoken.dev.azure.com/${var.organization_id}"
+  subject             = "sc://${var.organization_id}/${data.azuredevops_project.project.name}/${var.prefix}-service-connection"
 }
