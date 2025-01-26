@@ -17,5 +17,5 @@ output "managed_identity_principal_id" {
 }
 
 output "service_connection_name" {
-  value = azuredevops_serviceendpoint_azurerm.example.name
+  value = azuredevops_serviceendpoint_azurerm.se_fabric.name
 }
