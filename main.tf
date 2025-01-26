@@ -54,20 +54,13 @@ resource "azuredevops_serviceendpoint_azurerm" "se_fabric" {
 resource "azuredevops_git_repository" "repo_fabric" {
   project_id = data.azuredevops_project.project.id
   name       = var.target_repo_name
+  default_branch = "refs/heads/main"
   initialization {
-    init_type             = "Import"
+    init_type = "Clean"
     source_type           = "Git"
-    source_url            = "https://github.com/SONIAK-ORG/fabric-setup"
     service_connection_id = azuredevops_serviceendpoint_azurerm.se_fabric.id
   }
-  timeouts {
-    create = "10m"  # Increased timeout from default 1m
-  }
 
-  depends_on = [
-    azuredevops_serviceendpoint_azurerm.se_fabric,
-    azurerm_federated_identity_credential.federation
-  ]
 }
 
 # Add the federation section
