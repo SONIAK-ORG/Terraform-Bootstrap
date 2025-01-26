@@ -54,7 +54,6 @@ resource "azuredevops_serviceendpoint_azurerm" "se_fabric" {
 resource "azuredevops_git_repository" "repo_fabric" {
   project_id      = data.azuredevops_project.project.id
   name            = var.target_repo_name
-  default_branch  = "refs/heads/main"
   
   initialization {
     init_type = "Uninitialized"
