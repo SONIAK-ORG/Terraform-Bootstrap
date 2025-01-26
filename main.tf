@@ -50,17 +50,15 @@ resource "azuredevops_serviceendpoint_azurerm" "se_fabric" {
   azurerm_subscription_name = "Azure Fabric Accelerator Pod"
 }
 
-# Create a Git repository in Azure DevOps and initialize it with content from a source URL
+# Create an empty Git repository in Azure DevOps
 resource "azuredevops_git_repository" "repo_fabric" {
-  project_id = data.azuredevops_project.project.id
-  name       = var.target_repo_name
-  default_branch = "refs/heads/main"
+  project_id      = data.azuredevops_project.project.id
+  name            = var.target_repo_name
+  default_branch  = "refs/heads/main"
+  
   initialization {
-    init_type = "Clean"
-    source_type           = "Git"
-    service_connection_id = azuredevops_serviceendpoint_azurerm.se_fabric.id
+    init_type = "Uninitialized"
   }
-
 }
 
 # Add the federation section
