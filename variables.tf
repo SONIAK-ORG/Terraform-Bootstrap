@@ -1,11 +1,5 @@
 # Example variables
 
-variable "organization_id" {
-  description = "The Azure DevOps Organization ID"
-  type        = string
-}
-
-
 variable "org_url" {
   description = "The Azure DevOps organization URL"
   type        = string
